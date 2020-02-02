@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_personal_expense_app/transcation.dart';
 
 void main() => runApp(PersonalExpense());
 
 class PersonalExpense extends StatelessWidget {
-
+  final List<Transcation> transactions = [
+    Transcation(id: '001', title: 'shoe', amount: 102.50, date: DateTime.now()),
+    Transcation(
+        id: '002', title: 'Watch', amount: 5075.50, date: DateTime.now())
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +24,12 @@ class PersonalExpense extends StatelessWidget {
                 child: Text('Card 1'),
               ),
             ),
-        Card(
-          child: Text('cARD 2'),
-        ),
+            Column(
+                children: transactions.map((transact) {
+              return Card(
+                child: Text(transact.title),
+              );
+            }).toList()),
           ],
         ),
       ),

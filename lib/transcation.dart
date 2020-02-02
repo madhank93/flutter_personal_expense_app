@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 class Transcation {
   final String id;
   final String title;
-  final String amount;
+  final double amount;
   final DateTime date;
 
   Transcation(
