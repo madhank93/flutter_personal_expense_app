@@ -21,13 +21,40 @@ class PersonalExpense extends StatelessWidget {
           children: <Widget>[
             Container(
               child: Card(
-                child: Text('Card 1'),
+                child: Text('Chart'),
               ),
             ),
             Column(
                 children: transactions.map((transact) {
               return Card(
-                child: Text(transact.title),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.redAccent, width: 2),
+                      ),
+                      child: Text(
+                        transact.amount.toString(),
+                        style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        ),
+                      ),
+                      padding: EdgeInsets.all(10),
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Text(transact.title),
+                        Text(
+                          transact.date.toString(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               );
             }).toList()),
           ],
