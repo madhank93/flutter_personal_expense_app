@@ -35,21 +35,37 @@ class PersonalExpense extends StatelessWidget {
                         vertical: 10,
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.redAccent, width: 2),
+                        border: Border.all(
+                          color: Colors.redAccent,
+                          width: 2,
+                        ),
                       ),
                       child: Text(
                         transact.amount.toString(),
-                        style: TextStyle(fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.redAccent,
                         ),
                       ),
                       padding: EdgeInsets.all(10),
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(transact.title),
+                        Text(
+                          transact.title,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         Text(
                           transact.date.toString(),
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 10,
+                          ),
                         ),
                       ],
                     ),
