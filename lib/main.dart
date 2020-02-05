@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:intl/intl.dart';
+
 import 'package:flutter_personal_expense_app/transcation.dart';
 
 void main() => runApp(PersonalExpense());
@@ -10,18 +13,48 @@ class PersonalExpense extends StatelessWidget {
         id: '002', title: 'Watch', amount: 5075.50, date: DateTime.now())
   ];
 
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: Text('Expense calculator'),
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
               child: Card(
                 child: Text('Chart'),
+                elevation: 5,
+              ),
+            ),
+            Card(
+              elevation: 5,
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Title'),
+                      controller: titleController,
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Amount'),
+                      controller: amountController,
+                    ),
+                    FlatButton(
+                      onPressed: () {},
+                      child: Text('Add transactions'),
+                      textColor: Colors.redAccent,
+                    )
+                  ],
+                ),
               ),
             ),
             Column(
@@ -41,7 +74,7 @@ class PersonalExpense extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        transact.amount.toString(),
+                        '\$${transact.amount}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -61,7 +94,9 @@ class PersonalExpense extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          transact.date.toString(),
+                          DateFormat().add_yMMMd().format(transact.date),
+
+                          ///transact.date.toString()
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 10,
