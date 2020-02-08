@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 
-import 'package:flutter_personal_expense_app/transcation.dart';
+import 'package:flutter_personal_expense_app/models/transcation.dart';
 
 void main() => runApp(PersonalExpense());
 
