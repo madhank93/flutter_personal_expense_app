@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'package:flutter_personal_expense_app/widgets/new_transaction.dart';
-import 'package:flutter_personal_expense_app/widgets/transaction_list.dart';
 import 'package:flutter_personal_expense_app/widgets/user_transactions.dart';
 
 void main() => runApp(PersonalExpense());
