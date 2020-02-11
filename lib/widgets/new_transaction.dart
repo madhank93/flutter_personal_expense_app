@@ -4,9 +4,9 @@ class NewTransaction extends StatelessWidget {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
-  final Function addTranscation;
+  final Function addTransaction;
 
-  NewTransaction(this.addTranscation);
+  NewTransaction(this.addTransaction);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class NewTransaction extends StatelessWidget {
             ),
             FlatButton(
               onPressed: () {
-                addTranscation(titleController.text, double.parse(amountController.text));
+                addTransaction(titleController.text, double.parse(amountController.text));
               },
               child: Text('Add transactions'),
               textColor: Colors.redAccent,
