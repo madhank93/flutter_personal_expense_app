@@ -15,17 +15,19 @@ class PersonalExpense extends StatelessWidget {
         appBar: AppBar(
           title: Text('Expense calculator'),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              child: Card(
-                child: Text('Chart'),
-                elevation: 5,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                child: Card(
+                  child: Text('Chart'),
+                  elevation: 5,
+                ),
               ),
-            ),
-            UserTransactions(),
-          ],
+              UserTransactions(),
+            ],
+          ),
         ),
       ),
     );
