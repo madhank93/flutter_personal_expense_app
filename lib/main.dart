@@ -6,7 +6,6 @@ import 'package:flutter_personal_expense_app/widgets/user_transactions.dart';
 void main() => runApp(PersonalExpense());
 
 class PersonalExpense extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,6 +13,12 @@ class PersonalExpense extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Expense calculator'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {},
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -28,6 +33,11 @@ class PersonalExpense extends StatelessWidget {
               UserTransactions(),
             ],
           ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {},
         ),
       ),
     );
