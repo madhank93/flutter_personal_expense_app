@@ -1,22 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_personal_expense_app/models/transcation.dart';
+import 'package:flutter_personal_expense_app/widgets/new_transaction.dart';
+import 'package:flutter_personal_expense_app/widgets/transaction_list.dart';
 
-import 'package:flutter_personal_expense_app/widgets/user_transactions.dart';
+void main() => runApp(MyApp());
 
-void main() => runApp(PersonalExpense());
-
-class PersonalExpense extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      title: 'Flutter App',
+      home: PersonalExpense(),
+    );
+  }
+}
+
+class PersonalExpense extends StatefulWidget {
+  @override
+  _PersonalExpenseState createState() => _PersonalExpenseState();
+}
+
+class _PersonalExpenseState extends State<PersonalExpense> {
+  final List<Transaction> _userTransactions = [
+    Transaction(id: '001', title: 'shoe', amount: 102.50, date: DateTime.now()),
+    Transaction(
+        id: '002', title: 'Watch', amount: 5075.50, date: DateTime.now())
+  ];
+
+  void _addNewTransactions(String title, double amount) {
+    final newTx = Transaction(
+        id: DateTime.now().toString(),
+        title: title,
+        amount: amount,
+        date: DateTime.now());
+
+    setState(() {
+      _userTransactions.add(newTx);
+    });
+  }
+
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return NewTransaction(_addNewTransactions);
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+      return Scaffold(
         appBar: AppBar(
           title: Text('Expense calculator'),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.add),
-              onPressed: () {},
+              onPressed: () => _startAddNewTransaction(context),
             ),
           ],
         ),
@@ -30,16 +71,15 @@ class PersonalExpense extends StatelessWidget {
                   elevation: 5,
                 ),
               ),
-              UserTransactions(),
+              TransactionList(_userTransactions),
             ],
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: () {},
+          onPressed: () => _startAddNewTransaction(context),
         ),
-      ),
-    );
+      );
   }
 }
