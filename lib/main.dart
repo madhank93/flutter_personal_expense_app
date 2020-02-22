@@ -17,6 +17,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.pink,
         accentColor: Colors.pinkAccent,
         fontFamily: 'Roboto',
+          textTheme: ThemeData.light().textTheme.copyWith(
+            title: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ) ,
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 title: TextStyle(
@@ -38,7 +45,7 @@ class PersonalExpense extends StatefulWidget {
 
 class _PersonalExpenseState extends State<PersonalExpense> {
   final List<Transaction> _userTransactions = [
-    Transaction(id: '001', title: 'shoe', amount: 102.50, date: DateTime.now()),
+    Transaction(id: '001', title: 'Shoe', amount: 102.50, date: DateTime.now()),
     Transaction(
         id: '002', title: 'Watch', amount: 5075.50, date: DateTime.now())
   ];
