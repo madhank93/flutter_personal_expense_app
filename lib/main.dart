@@ -10,8 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Expense calculator',
       home: PersonalExpense(),
+      theme: ThemeData(
+        primarySwatch: Colors.pink,
+        accentColor: Colors.pinkAccent,
+      ),
     );
   }
 }
