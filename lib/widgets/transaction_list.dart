@@ -16,7 +16,7 @@ class TransactionList extends StatelessWidget {
           ? Column(
               children: <Widget>[
                 Text(
-                  "No transcation added yet",
+                  "No transcations added yet",
                   style: Theme.of(context).textTheme.title,
                 ),
                 SizedBox(
