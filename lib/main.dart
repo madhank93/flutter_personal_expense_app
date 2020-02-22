@@ -11,10 +11,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Expense calculator',
+      debugShowCheckedModeBanner: false,
       home: PersonalExpense(),
       theme: ThemeData(
         primarySwatch: Colors.pink,
         accentColor: Colors.pinkAccent,
+        fontFamily: 'OpenSans',
       ),
     );
   }
