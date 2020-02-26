@@ -56,7 +56,7 @@ class _PersonalExpenseState extends State<PersonalExpense> {
       return tx.date.isAfter(DateTime.now().subtract(
         Duration(days: 7),
       ));
-    });
+    }).toList();
   }
 
   @override
