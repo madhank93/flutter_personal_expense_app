@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_personal_expense_app/models/transcation.dart';
+import 'package:flutter_personal_expense_app/widgets/chart.dart';
 import 'package:flutter_personal_expense_app/widgets/new_transaction.dart';
 import 'package:flutter_personal_expense_app/widgets/transaction_list.dart';
 
@@ -17,13 +18,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.pink,
         accentColor: Colors.pinkAccent,
         fontFamily: 'Roboto',
-          textTheme: ThemeData.light().textTheme.copyWith(
-            title: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+        textTheme: ThemeData.light().textTheme.copyWith(
+              title: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ) ,
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 title: TextStyle(
@@ -47,8 +48,45 @@ class _PersonalExpenseState extends State<PersonalExpense> {
   final List<Transaction> _userTransactions = [
     //Transaction(id: '001', title: 'Shoe', amount: 102.50, date: DateTime.now()),
     //Transaction(
-        //id: '002', title: 'Watch', amount: 5075.50, date: DateTime.now())
+    //id: '002', title: 'Watch', amount: 5075.50, date: DateTime.now())
   ];
+
+  List<Transaction> get _recentTransaction {
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Expense calculator'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _startAddNewTransaction(context),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Chart(_recentTransaction),
+            TransactionList(_userTransactions),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _startAddNewTransaction(context),
+      ),
+    );
+  }
 
   void _addNewTransactions(String title, double amount) {
     final newTx = Transaction(
@@ -68,40 +106,6 @@ class _PersonalExpenseState extends State<PersonalExpense> {
       builder: (_) {
         return NewTransaction(_addNewTransactions);
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Expense calculator'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _startAddNewTransaction(context),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              child: Card(
-                child: Text('Chart'),
-                elevation: 5,
-              ),
-            ),
-            TransactionList(_userTransactions),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => _startAddNewTransaction(context),
-      ),
     );
   }
 }
