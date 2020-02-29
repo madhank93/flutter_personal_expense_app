@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTransaction;
@@ -11,8 +12,8 @@ class NewTransaction extends StatefulWidget {
 
 class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
-
   final amountController = TextEditingController();
+  DateTime selectedDate;
 
   void submitData() {
     final enteredTitle = titleController.text;
@@ -27,6 +28,21 @@ class _NewTransactionState extends State<NewTransaction> {
       enteredAmount,
     );
     Navigator.of(context).pop();
+  }
+
+  void pickDate() {
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2019),
+        lastDate: DateTime.now()).then((pickedDate) {
+          if (pickedDate==null) {
+            return;
+          }
+          setState(() {
+            selectedDate = pickedDate;
+          });
+    });
   }
 
   @override
@@ -50,12 +66,15 @@ class _NewTransactionState extends State<NewTransaction> {
               onSubmitted: (_) => submitData(),
             ),
             Container(
-              height: 70,
+              height: 60,
               child: Row(
                 children: <Widget>[
-                  Text('No date chosen!'),
+                  Expanded(
+                    child: selectedDate == null ? Text('No date chosen!')
+                    : Text("Chosen Date: ${DateFormat.yMd().format(selectedDate)}"),
+                  ),
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: pickDate,
                     child: Text(
                       'Choose date',
                       style: TextStyle(fontWeight: FontWeight.bold),
