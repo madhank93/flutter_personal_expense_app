@@ -79,7 +79,7 @@ class _PersonalExpenseState extends State<PersonalExpense> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recentTransaction),
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions, _deleteTransactions),
           ],
         ),
       ),
@@ -101,6 +101,10 @@ class _PersonalExpenseState extends State<PersonalExpense> {
     setState(() {
       _userTransactions.add(newTx);
     });
+  }
+
+  void _deleteTransactions (String id) {
+    _userTransactions.removeWhere((tx) => tx.id == id);
   }
 
   void _startAddNewTransaction(BuildContext ctx) {
