@@ -104,7 +104,9 @@ class _PersonalExpenseState extends State<PersonalExpense> {
   }
 
   void _deleteTransactions (String id) {
-    _userTransactions.removeWhere((tx) => tx.id == id);
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id);
+    });
   }
 
   void _startAddNewTransaction(BuildContext ctx) {
