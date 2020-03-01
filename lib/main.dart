@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Expense calculator',
       debugShowCheckedModeBanner: false,
       home: PersonalExpense(),
+      // Adding theme globally includes (fonts and colors)
       theme: ThemeData(
         primarySwatch: Colors.pink,
         accentColor: Colors.pinkAccent,
@@ -24,10 +25,11 @@ class MyApp extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
-          button: TextStyle(
-            color: Colors.white,
-          ),
+              button: TextStyle(
+                color: Colors.white,
+              ),
             ),
+        // Theme applicable for Appbar (setting different font style for Appbar title)
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 title: TextStyle(
@@ -48,17 +50,21 @@ class PersonalExpense extends StatefulWidget {
 }
 
 class _PersonalExpenseState extends State<PersonalExpense> {
+  // Empty list to store all the user transactions
   final List<Transaction> _userTransactions = [
     //Transaction(id: '001', title: 'Shoe', amount: 102.50, date: DateTime.now()),
     //Transaction(
     //id: '002', title: 'Watch', amount: 5075.50, date: DateTime.now())
   ];
 
+  // Getter method to fetch recent transaction of 7 days (Today - 7days)
   List<Transaction> get _recentTransaction {
     return _userTransactions.where((tx) {
-      return tx.date.isAfter(DateTime.now().subtract(
-        Duration(days: 7),
-      ));
+      return tx.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
     }).toList();
   }
 
@@ -68,6 +74,7 @@ class _PersonalExpenseState extends State<PersonalExpense> {
       appBar: AppBar(
         title: Text('Expense calculator'),
         actions: <Widget>[
+          // Code for + button in Appbar and (_startAddNewTransaction) method will be called on press
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () => _startAddNewTransaction(context),
@@ -78,11 +85,12 @@ class _PersonalExpenseState extends State<PersonalExpense> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransaction),
-            TransactionList(_userTransactions, _deleteTransactions),
+            Chart(_recentTransaction), // Calling Chart class with recent transactions list passed to it
+            TransactionList(_userTransactions, _deleteTransactions), // Calling Transaction list class with user transaction list and function to delete transactions passed to it
           ],
         ),
       ),
+      // Code for fab button and (_startAddNewTransaction) method will be called on press
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -91,6 +99,17 @@ class _PersonalExpenseState extends State<PersonalExpense> {
     );
   }
 
+  // This method gets called when FAB or + button in appbar is pressed
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return NewTransaction(_addNewTransactions);
+      },
+    );
+  }
+
+  // Add
   void _addNewTransactions(String title, double amount, DateTime chosenDate) {
     final newTx = Transaction(
         id: DateTime.now().toString(),
@@ -103,18 +122,11 @@ class _PersonalExpenseState extends State<PersonalExpense> {
     });
   }
 
-  void _deleteTransactions (String id) {
+  void _deleteTransactions(String id) {
     setState(() {
       _userTransactions.removeWhere((tx) => tx.id == id);
     });
   }
 
-  void _startAddNewTransaction(BuildContext ctx) {
-    showModalBottomSheet(
-      context: ctx,
-      builder: (_) {
-        return NewTransaction(_addNewTransactions);
-      },
-    );
-  }
+
 }
