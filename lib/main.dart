@@ -51,11 +51,7 @@ class PersonalExpense extends StatefulWidget {
 
 class _PersonalExpenseState extends State<PersonalExpense> {
   // Empty list to store all the user transactions
-  final List<Transaction> _userTransactions = [
-    //Transaction(id: '001', title: 'Shoe', amount: 102.50, date: DateTime.now()),
-    //Transaction(
-    //id: '002', title: 'Watch', amount: 5075.50, date: DateTime.now())
-  ];
+  final List<Transaction> _userTransactions = [];
 
   // Getter method to fetch recent transaction of 7 days (Today - 7days)
   List<Transaction> get _recentTransaction {
@@ -122,6 +118,7 @@ class _PersonalExpenseState extends State<PersonalExpense> {
     });
   }
 
+  //
   void _deleteTransactions(String id) {
     setState(() {
       _userTransactions.removeWhere((tx) => tx.id == id);
